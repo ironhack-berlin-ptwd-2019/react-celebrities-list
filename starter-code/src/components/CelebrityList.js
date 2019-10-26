@@ -4,6 +4,7 @@ import CelebrityCard from './CelebrityCard'
 import contacts from '../contacts.json'
 
 import _ from "lodash"
+import AddCelebrity from './AddCelebrity';
 
 class CelebrityList extends Component {
 
@@ -28,11 +29,19 @@ class CelebrityList extends Component {
     })
   }
 
+  addCelebrity = (celebrity) => {
+    const newArr = [celebrity, ...this.state.contacts]
+    this.setState({
+      contacts: newArr
+    })
+  }
+
   render() {
     return (
       <div >
         <h1>List of Celebrities</h1>
         <button onClick={this.clickHandler}>Add random celebrity</button>
+        <AddCelebrity onNewCelebrity={this.addCelebrity} />
         <ul>
           {this.state.contacts.map((contact, idx) => {
             return <CelebrityCard key={idx} {...contact} onDelete={() => this.deleteHandler(idx)} />
